@@ -1,0 +1,79 @@
+from tkinter import *
+
+# ------------------------------
+# 1️⃣ Головне вікно
+# Tk() — створює головне вікно
+root = Tk()
+root.title("Проєкти з розгалуженнями, прапорцями і перемикачами")
+root.geometry("400x400")  # ширина x висота
+root.config(bg="lightgrey")
+
+# ------------------------------
+# 2️⃣ Прапорці (Checkbutton)
+# IntVar() — змінна для керування прапорцем
+# onvalue — значення, коли прапорець увімкнено
+# offvalue — значення, коли прапорець вимкнено
+cvar1 = IntVar()
+c1 = Checkbutton(root, text="Змінити заголовок", variable=cvar1, onvalue=1, offvalue=0)
+c1.pack(anchor=W, pady=5)
+
+cvar2 = IntVar()
+c2 = Checkbutton(root, text="Змінити колір фону", variable=cvar2, onvalue=1, offvalue=0)
+c2.pack(anchor=W, pady=5)
+
+cvar3 = IntVar()
+c3 = Checkbutton(root, text="Змінити розмір вікна", variable=cvar3, onvalue=1, offvalue=0)
+c3.pack(anchor=W, pady=5)
+
+# ------------------------------
+# 3️⃣ Перемикачі (Radiobutton)
+# IntVar() — змінна для керування групою перемикачів
+var = IntVar()
+var.set(0)  # вибрана радіокнопка за замовчуванням
+
+rb1 = Radiobutton(root, text="Червоний", variable=var, value=0)
+rb1.pack(anchor=W)
+rb2 = Radiobutton(root, text="Жовтий", variable=var, value=1)
+rb2.pack(anchor=W)
+rb3 = Radiobutton(root, text="Зелений", variable=var, value=2)
+rb3.pack(anchor=W)
+
+# ------------------------------
+# 4️⃣ Обробник подій для кнопки
+def btn_click():
+    # --------------------------
+    # Прапорці
+    # Перевірка стану прапорців і відповідна дія
+    if cvar1.get() == 1:  # якщо увімкнено
+        root.title("Заголовок змінено")  # змінюємо заголовок
+    else:
+        root.title("Проєкти з розгалуженнями, прапорцями і перемикачами")
+
+    if cvar2.get() != 0:
+        root.config(bg="lightblue")  # змінюємо колір фону
+    else:
+        root.config(bg="lightgrey")
+
+    if cvar3.get() != 0:
+        root.geometry("500x300")  # змінюємо розмір
+    else:
+        root.geometry("400x400")
+
+    # --------------------------
+    # Перемикачі
+    # Змінюємо колір фону в залежності від вибраного варіанту
+    if var.get() == 0:  # червоний
+        root.config(bg="red")
+    elif var.get() == 1:  # жовтий
+        root.config(bg="yellow")
+    elif var.get() == 2:  # зелений
+        root.config(bg="green")
+
+# ------------------------------
+# 5️⃣ Кнопка для застосування змін
+btn = Button(root, text="Застосувати", command=btn_click)
+btn.pack(pady=20)
+
+# ------------------------------
+# 6️⃣ Запуск головного циклу програми
+root.mainloop()
