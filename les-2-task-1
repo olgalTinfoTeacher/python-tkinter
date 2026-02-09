@@ -1,0 +1,53 @@
+import tkinter as tk                  # підключаємо tkinter
+
+root = tk.Tk()                        # створюємо вікно
+root.title("Доступ")                  # назва
+root.geometry("300x200")              # розмір
+
+info = tk.Label(
+    root,
+    text="Обери дозволи",
+    font=("Arial", 14)
+)
+info.pack(pady=10)
+
+edit_var = tk.IntVar()                # прапорець редагування
+delete_var = tk.IntVar()              # прапорець видалення
+
+def check_access():                   # обробник кнопки
+    if edit_var.get() == 1 and delete_var.get() == 1:
+        info.config(text="Повний доступ")
+    elif edit_var.get() == 1:
+        info.config(text="Доступ до редагування")
+    elif delete_var.get() == 1:
+        info.config(text="Доступ до видалення")
+    else:
+        info.config(text="Доступу немає")
+
+cb1 = tk.Checkbutton(
+    root,
+    text="Редагування",
+    variable=edit_var
+)
+cb1.pack(anchor="w")
+
+cb2 = tk.Checkbutton(
+    root,
+    text="Видалення",
+    variable=delete_var
+)
+cb2.pack(anchor="w")
+
+btn = tk.Button(
+    root,
+    text="Перевірити доступ",
+    command=check_access
+)
+btn.pack(pady=15)
+
+# ---------- ЗАВДАННЯ 3 ----------
+# 1) Додай ще один прапорець
+# 2) Зміни тексти повідомлень
+# ⭐ 3) Зроби, щоб змінювався колір напису залежно від доступу
+
+root.mainloop()
