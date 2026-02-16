@@ -1,0 +1,46 @@
+from tkinter import *
+import time
+
+# Функція для знаходження центру кульки
+def midpoint(pos):
+    return [(pos[0] + pos[2]) / 2, (pos[1] + pos[3]) / 2]
+
+# Функція руху кульки по клавішах
+def move_ball(event):
+    step = 5
+    start_pos = midpoint(canvas.coords(ball))
+    if event.keysym == 'Up':
+        canvas.move(ball, 0, -step)
+    elif event.keysym == 'Down':
+        canvas.move(ball, 0, step)
+    elif event.keysym == 'Left':
+        canvas.move(ball, -step, 0)
+    elif event.keysym == 'Right':
+        canvas.move(ball, step, 0)
+    # Малюємо слід кульки
+    canvas.create_line(start_pos, midpoint(canvas.coords(ball)), fill='blue', width=2)
+
+# Створюємо головне вікно
+root = Tk()
+root.title("Рухома кулька")
+root.geometry("400x400")
+
+# Полотно Canvas
+canvas = Canvas(root, width=400, height=400, bg="lightyellow")
+canvas.pack()
+
+# Створюємо кульку
+ball = canvas.create_oval(10, 10, 40, 40, fill='red')
+
+# Пов'язуємо події клавіш з функцією руху
+canvas.bind_all('<Key>', move_ball)
+
+root.mainloop()
+
+# ---------- Завдання для учнів ----------
+# 1) Зроби так, щоб кулька змінювала колір при кожному русі
+# 2) Зроби слід кульки зеленим та товщиною 4
+# 3) Змініть швидкість руху кульки (step)
+# 4) * Додай обмеження, щоб кулька не виходила за межі полотна
+# 4) ** Додай діагональні переміщення за клавішами A, S, Z, X
+
